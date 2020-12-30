@@ -1,0 +1,104 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url('../font/candara-light.ttf');
+  }
+ 
+body{
+    background-color: #AB8484;
+    color:#f6e8e8;
+    font-family: myFirstFont !important;
+}
+
+.bg-light{
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+#logo{
+    width: 80%;
+    padding: 30px;
+}
+.btn-outline-light{
+    color:#f6e8e8 !important;
+    border-color: #f6e8e8 !important;
+    font-family: myFirstFont !important;
+}
+button{
+    width: 300px !important;
+}
+
+.w-80{
+    width: 80% !important;
+}
+.btn.disabled{
+    opacity: 1 !important;
+}
+input::placeholder { color:#f6e8e8 !important; }
+
+
+.btn-outline-light:hover, .btn-outline-light:focus, .btn-outline-light:active, .btn-outline-light:active:focus, .btn-outline-light.active{
+    color:#f6e8e8 !important;
+    border-color: #f6e8e8 !important;
+}
+.form-control:focus {
+    color: #f6e8e8 !important;
+    background-color: transparent !important;
+    border-color: #f6e8e8 !important;
+    outline: 0;
+    box-shadow: none;
+}
+.form-control {
+    color: #f6e8e8 !important;
+    background-color: transparent !important;
+    border-color: #f6e8e8 !important;
+}
+#anchor{
+    color: #f6e8e8 !important; 
+}
+h5{
+    font-family: myFirstFont !important;
+}
+.text_right{
+    text-align: right;
+}
+div#memory_board{
+	
+	width:800px;
+	height:540px;
+	padding:24px;
+	margin:0px auto;
+}
+div#memory_board > div{
+	background: url("../images/logo_transparent.png") no-repeat;
+	background-size: 100%;
+	background-color:  #BBC8D5;
+    border:#BBC8D5 1px solid;
+    color:#AB8484;
+	width:150px;
+	height:150px;
+	float:left;
+	margin:10px;
+	padding:20px;
+	font-size:30px;
+	cursor:pointer;
+	text-align:center;
+	border-radius: 12px;
+	display: flex;
+   align-items: center; 
+   justify-content: center;
+}
+
+@media only screen and (min-width: 1050px) {
+    #custom-margin{
+        position: relative;
+        top: -150px;
+    }
+  }
+  @media only screen and (max-width: 575px) {
+    .text_right{
+        text-align: center;
+    }
+    .w-50{
+        width: 100% !important;
+    }
+  }

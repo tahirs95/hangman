@@ -1,6 +1,58 @@
-<form method="post">
+<!-- <form method="post">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     <button type="submit">Save changes</button>
-  </form>
+  </form> -->
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Game</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-auto text-center" href="/"><img id="logo" src="/static/assets/images/logo.png"></a>
+      </nav>
+<div class="container">
+    <form method="POST">
+      {% csrf_token %}  
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h2 class="font-weight-bold"> Username </h2></label>
+            <div class="col-sm-8">
+              <input type="text" name="username" class="form-control w-50 mt-1" id="staticEmail" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h2 class="font-weight-bold"> Password </h2></label>
+            <div class="col-sm-8">
+              <input type="password" name="password" class="form-control w-50 mt-1" id="staticEmail" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h2 class="font-weight-bold"> Role </h2></label>
+            <div class="col-sm-8">
+                <select class="form-control w-50 mt-1" name="role">
+                    <option value="Teacher">Teacher</option>
+                    <option value="Student">Student</option>
+                  </select>
+             </div>
+          </div>
+          <h5 class="text-center">Already have an account? <a class="font-weight-bold" href="/login" id="anchor">Click here to Login</a></h5>
+          <div class="mt-2 text_right">
+          <button type="submit" class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
+            <h5 class="font-weight-bold"> Register </h5>
+          </button>
+        </div>
+      </form>
+    </div>
+    </body>

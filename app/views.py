@@ -41,9 +41,15 @@ def game(request):
         teacher = UserProfile.objects.filter(user=request.user)[0]
         game = Game(teacher=teacher, words=words)
         game.save()
+        print(words)
         return redirect('/')
     else:
         return render(request, 'game.html')
+
+def role(request):
+    up = UserProfile.objects.filter(user=request.user)[0]
+    role = up.role
+    return render(request,'role.html',{"role":role})
 
 def add_players(request):
     if request.method == 'POST':

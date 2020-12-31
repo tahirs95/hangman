@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Game</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/assets/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-auto text-center" href="#"><img id="logo" src="/static/assets/images/logo.png"></a>
+      </nav>
+<div class="container">
+        {% if role == 'teacher' %}
+          <div class="mt-5 text-center">
+          <a href="/game" class="btn btn-outline-light font-weight-bold waves-effect w-100" data-mdb-ripple-color="dark">
+            <h5 class="font-weight-bold"> Enter Words For The Game </h5>
+          </a>
+          <a href="/add_players" class="btn btn-outline-light font-weight-bold waves-effect w-100 mt-4" data-mdb-ripple-color="dark">
+            <h5 class="font-weight-bold"> Manage The Group Members </h5>
+          </a>
+        </div>
+        {% else %}
+        <div class="mt-5 text-center">
+            <a href="#" class="btn btn-outline-light font-weight-bold w-100 disabled" data-mdb-ripple-color="dark">
+              <h5 class="font-weight-bold"> Open Games </h5>
+            </a>
+             <div class="row mt-4">
+              <div class="col-sm-4">
+                  <h4 class="font-weight-bold"> LIST <br>OF<br> OPEN GAMES </h4>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <input type="text" class="form-control form-control-lg mt-1"  placeholder="TEACHERS USERNAME" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <button  class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
+                       LET'S PLAY 
+                    </button>
+                </div>
+             </div>
+            </div>
+        {% endif %}
+    </div>
+    </body>

@@ -1,10 +1,12 @@
+import json
+
 from django.shortcuts import render, redirect
-from .forms import  UserForm, ProfileForm
-from .models import  UserProfile, Game, Player
 from django.contrib.auth.models import User
 
-# Create your views here.
+from .forms import  UserForm, ProfileForm
+from .models import  UserProfile, Game, Player
 
+# Create your views here.
 
 def home(request):
     return render(request, "home.html")
@@ -48,12 +50,23 @@ def game(request):
     if request.method == 'POST':
         words = request.POST.get('words')
         teacher = UserProfile.objects.filter(user=request.user)[0]
-        game = Game(teacher=teacher, words=words)
-        game.save()
-        print(words)
-        return redirect('/')
+        game = Game.objects.filter(teacher=teacher)
+        if game:
+            game = game[0]
+            game.words = words
+            game.save()
+        else:
+            game = Game(teacher=teacher, words=words)
+            game.save()
+        return redirect('/role')
     else:
-        return render(request, 'game.html')
+        up = UserProfile.objects.filter(user=request.user)[0]
+        game = Game.objects.filter(teacher=up)
+        if game:
+            words = json.loads(game[0].words)
+        else:
+            words = {}
+        return render(request, 'game.html', {"words":words})
 
 def role(request):
     up = UserProfile.objects.filter(user=request.user)[0]

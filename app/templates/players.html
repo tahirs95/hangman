@@ -24,11 +24,15 @@
           </a>
         </div>
         <div class="mt-3">
-           <form>
+           <form method="POST" action="/add_players/">
+             {% csrf_token %}
             <div class="form-group row justify-content-center" id="form-0">
                 <div class="col-sm-5">
                     <select class="form-control  mt-2">
-                        <option value="Student">Student</option>
+                        <option></option>
+                         {% for player in player_names %}
+                        <option value="{{player}}">{{player}}</option>
+                        {% endfor %}
                       </select>
                  </div>
                  <div class="col-sm-2">
@@ -60,8 +64,11 @@ function add_student(){
     $( ` <div class="form-group row justify-content-center" id="form-`+count+`">
                 <div class="col-sm-5">
                     <select class="form-control  mt-2">
-                        <option value="Student">Student</option>
-                      </select>
+                        <option></option>
+                        {% for player in player_names %}
+                        <option value="{{player}}">{{player}}</option>
+                        {% endfor %}
+                    </select>
                  </div>
                  <div class="col-sm-2">
                      <button  type="button" class="btn btn-outline-light font-weight-bold waves-effect" style="width: 100% !important;" data-mdb-ripple-color="dark" onclick="delete_student(`+count+`)">

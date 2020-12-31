@@ -20,6 +20,7 @@
 <div class="container">
           <div class="mt-5 text-center">
           <a href="#" class="btn btn-outline-light font-weight-bold w-100 disabled" data-mdb-ripple-color="dark">
+              
             <h5 class="font-weight-bold"> Enter Words For The Game </h5>
           </a>
         </div>
@@ -27,16 +28,34 @@
             <form method="POST" action="/game/" onsubmit="form_submit()">
                 {% csrf_token %}
                 <div id="form">
+                    {% if words|length > 0 %}
+                    {% for key,value in words.items %} 
+                    <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label for="pwd" ><h3 class="font-weight-bold"> Enter Word:</h3></label>
+                              <input type="text"  class="form-control word" id="pwd" value="{{key}}" placeholder="Enter Word" data-name="1" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label for="pwd" ><h3 class="font-weight-bold"> Translation:</h3></label>
+                              <input type="text" class="form-control translation" id="pwd" value="{{value}}" placeholder="Enter Translation" data-name="1" required>
+                            </div>
+                      </div>
+                          </div> 
+                      {% endfor %}
+                    {% else %}
                     <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="pwd" ><h3 class="font-weight-bold"> 1st Word:</h3></label>
-                        <input type="text"  class="form-control word" id="pwd" placeholder="Enter 1st Word" data-name="1" required>
+                        <label for="pwd" ><h3 class="font-weight-bold"> Enter Word:</h3></label>
+                        <input type="text"  class="form-control word" id="pwd" placeholder="Enter Word" data-name="1" required>
                       </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="pwd" ><h3 class="font-weight-bold"> Translation:</h3></label>
+                        <label for="pwd" ><h3 class="font-weight-bold">Enter Translation:</h3></label>
                         <input type="text" class="form-control translation" id="pwd"  placeholder="Enter Translation" data-name="1" required>
                       </div>
                 </div>
@@ -44,13 +63,13 @@
                     <div class="row">
                         <div class="col-sm-6">
                           <div class="form-group">
-                              <label for="pwd" ><h3 class="font-weight-bold"> 2nd Word: </h3></label>
-                              <input type="text" class="form-control word" id="pwd" placeholder="Enter 2nd Word" data-name="2" required>
+                              <label for="pwd" ><h3 class="font-weight-bold"> Enter Word: </h3></label>
+                              <input type="text" class="form-control word" id="pwd" placeholder="Enter Word" data-name="2" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
-                              <label for="pwd" ><h3 class="font-weight-bold"> Translation: </h3></label>
+                              <label for="pwd" ><h3 class="font-weight-bold">Enter Translation: </h3></label>
                               <input type="text" class="form-control translation" id="pwd"  placeholder="Enter Translation" data-name="2" required>
                             </div>
                       </div>
@@ -58,13 +77,13 @@
                           <div class="row">
                             <div class="col-sm-6">
                               <div class="form-group">
-                                  <label for="pwd" ><h3 class="font-weight-bold"> 3rd Word: </h3></label>
-                                  <input type="text" class="form-control word" id="pwd" placeholder="Enter 3rd Word" data-name="3" required>
+                                  <label for="pwd" ><h3 class="font-weight-bold">Enter Word: </h3></label>
+                                  <input type="text" class="form-control word" id="pwd" placeholder="Enter Word" data-name="3" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                               <div class="form-group">
-                                  <label for="pwd" ><h3 class="font-weight-bold"> Translation: </h3></label>
+                                  <label for="pwd" ><h3 class="font-weight-bold">Enter Translation: </h3></label>
                                   <input type="text" class="form-control translation" id="pwd" placeholder="Enter Translation" data-name="3" required>
                                 </div>
                           </div>
@@ -72,17 +91,18 @@
                               <div class="row">
                                 <div class="col-sm-6">
                                   <div class="form-group">
-                                      <label for="pwd" ><h3 class="font-weight-bold"> 4th Word: </h3></label>
-                                      <input type="text" class="form-control word" id="pwd" placeholder="Enter 4th Word" data-name="4" required>
+                                      <label for="pwd" ><h3 class="font-weight-bold"> Enter Word: </h3></label>
+                                      <input type="text" class="form-control word" id="pwd" placeholder="Enter Word" data-name="4" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                   <div class="form-group">
-                                      <label for="pwd" > <h3 class="font-weight-bold"> Translation: </h3></label>
+                                      <label for="pwd" > <h3 class="font-weight-bold">Enter Translation: </h3></label>
                                       <input type="text" class="form-control translation" id="pwd" placeholder="Enter Translation" data-name="4" required>
                                     </div>
                               </div>
                                   </div>
+                                  {% endif %}
                                 </div>
 
                      <div class="col-sm-3 mt-2 mx-auto">
@@ -107,18 +127,14 @@
             <!-- MDB core JavaScript -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>    
         <script>
-       
   function form_submit(){
-      var arr = [];
+      var obj = {}
       
          for (var i = 0 ; i<document.querySelectorAll(".word").length;i++){
-           var obj = {
-               [document.querySelectorAll(".word")[i].value]:document.querySelectorAll(".translation")[i].value
-           } 
-           arr.push(obj)      
+           obj [document.querySelectorAll(".word")[i].value] = document.querySelectorAll(".translation")[i].value      
          }
 
-  document.getElementById("words").value = JSON.stringify(arr)
+  document.getElementById("words").value = JSON.stringify(obj)
   }
 
               var count = 5;
@@ -127,13 +143,13 @@ function add_words(){
   <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                      <label for="pwd" ><h3 class="font-weight-bold"> `+count+`th Word:</h3></label>
-                      <input type="text" class="form-control word" id="pwd" placeholder="Enter `+count+`th Word" data-name="`+count+`" required>
+                      <label for="pwd" ><h3 class="font-weight-bold"> Enter Word:</h3></label>
+                      <input type="text" class="form-control word" id="pwd" placeholder="Enter Word" data-name="`+count+`" required>
                     </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                      <label for="pwd" ><h3 class="font-weight-bold"> Translation:</h3></label>
+                      <label for="pwd" ><h3 class="font-weight-bold">Enter Translation:</h3></label>
                       <input type="text" class="form-control translation" id="pwd" placeholder="Enter Translation" data-name="`+count+`" required>
                     </div>
               </div>

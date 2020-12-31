@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-from .models import UserProfile
+from .models import UserProfile, Game, Player
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'last_login', 'date_joined')
@@ -18,3 +18,5 @@ class CustomUserAdmin(UserAdmin):
 # admin.site.register(User, CustomUserAdmin)
 
 admin.site.register(UserProfile)
+admin.site.register(Game)
+admin.site.register(Player)

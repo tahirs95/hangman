@@ -8,6 +8,9 @@ body{
     color:#f6e8e8;
     font-family: myFirstFont !important;
 }
+option{
+    color: black !important;
+}
 
 .bg-light{
     background-color: transparent !important;

@@ -28,10 +28,10 @@
              {% csrf_token %}
             <div class="form-group row justify-content-center" id="form-0">
                 <div class="col-sm-5">
-                    <select class="form-control  mt-2">
-                        <option></option>
+                    <select class="form-control  mt-2" onchange="dropdown_val(this)" id="select-0">
+                        <option value="0">-</option>
                          {% for player in player_names %}
-                        <option value="{{player}}">{{player}}</option>
+                        <option class="a-{{player}}" value="{{player}}">{{player}}</option>
                         {% endfor %}
                       </select>
                  </div>
@@ -63,10 +63,10 @@
 function add_student(){
     $( ` <div class="form-group row justify-content-center" id="form-`+count+`">
                 <div class="col-sm-5">
-                    <select class="form-control  mt-2">
-                        <option></option>
+                    <select class="form-control  mt-2" onchange="dropdown_val(this)"  id="select-`+count+`">
+                        <option value="0">-</option>
                         {% for player in player_names %}
-                        <option value="{{player}}">{{player}}</option>
+                        <option class="a-{{player}}" value="{{player}}">{{player}}</option>
                         {% endfor %}
                     </select>
                  </div>
@@ -83,6 +83,14 @@ function add_student(){
 
 function delete_student(item){
 $("#form-"+item).remove();
+}
+
+function dropdown_val(elem){
+    $('option[disabled').removeAttr("disabled");
+  document.querySelectorAll(".a-"+elem.value).forEach(function(elem2){
+      elem2.disabled = true;
+  })
+  $("select[id="+elem.id+"] :selected").attr("disabled",false) 
 }
 </script>    
 </body>

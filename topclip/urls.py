@@ -30,6 +30,9 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='authentication/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
     path('game/', views.game, name='game'),
+    path('solo-game-words/', views.game_2, name='game_2'),
+    path('solo-game/', views.game_start_2, name='game_start_2'),
+    path('graph-solo/', views.graph_2, name='graph_2'),
     path('role/', views.role, name='role'),
     path('add_players/', views.add_players, name='add_players'),
     

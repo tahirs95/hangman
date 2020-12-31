@@ -34,6 +34,15 @@ def signup(request):
         'profile_form': profile_form
     })
 
+def game_2(request):
+     return render(request, 'game-2.html')
+
+def graph_2(request):
+     return render(request, 'graph-2.html')
+
+
+def game_start_2(request):
+     return render(request, 'game-start-2.html')
 
 def game(request):
     if request.method == 'POST':

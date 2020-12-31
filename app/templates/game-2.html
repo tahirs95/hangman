@@ -24,8 +24,7 @@
           </a>
         </div>
         <div class="mt-3">
-            <form method="POST" action="/game/" onsubmit="form_submit()">
-                {% csrf_token %}
+            <form onsubmit="values_set()" action="javascript:void(0);">
                 <div id="form">
                     <div class="row">
                   <div class="col-sm-6">
@@ -107,19 +106,19 @@
             <!-- MDB core JavaScript -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>    
         <script>
-       
-  function form_submit(){
-      var arr = [];
-      
-         for (var i = 0 ; i<document.querySelectorAll(".word").length;i++){
-           var obj = {
-               [document.querySelectorAll(".word")[i].value]:document.querySelectorAll(".translation")[i].value
-           } 
-           arr.push(obj)      
-         }
 
-  document.getElementById("words").value = JSON.stringify(arr)
-  }
+       
+   localStorage.removeItem("values")
+  localStorage.removeItem("time1")
+  localStorage.removeItem("time2")
+  localStorage.removeItem("time3")
+  localStorage.removeItem("time4")
+  localStorage.removeItem("time5")
+  localStorage.removeItem("flips1")
+  localStorage.removeItem("flips2")
+  localStorage.removeItem("flips3")
+  localStorage.removeItem("flips4")
+  localStorage.removeItem("flips5")
 
               var count = 5;
 function add_words(){
@@ -146,7 +145,17 @@ function add_words(){
   }
 
 }
-
+function values_set(){
+  var values = []
+  localStorage.setItem("length",JSON.parse(document.querySelectorAll(".form-control").length))
+  document.querySelectorAll(".form-control").forEach(function(item){
+    var obj = {val:item.value,indicate:item.getAttribute('data-name')}
+    values.push(obj)
+  })
+  console.log(values)
+  localStorage.setItem("values",JSON.stringify(values))
+  window.location.href ="/solo-game"
+}
         </script>
         </body>
 

@@ -78,7 +78,7 @@ def role(request):
     if role == "student":
         student = UserProfile.objects.filter(user=request.user)[0]
         players = Player.objects.filter(student=student)
-        if player:
+        if players:
             for p in players:
                 teachers.append(p.teacher.user.username)
     return render(request,'role.html',{"role":role, "teachers":teachers})

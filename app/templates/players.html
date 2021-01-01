@@ -68,6 +68,7 @@
                 <div class="form-group row justify-content-center" id="form-0">
                   <div class="col-sm-5">
                       <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-0">
+                        <option value="0">-</option>
                            {% for player in player_names %}
                           <option class="a-{{player}}" value="{{player}}">{{player}}</option>
                           {% endfor %}

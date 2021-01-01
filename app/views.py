@@ -71,20 +71,17 @@ def game(request):
         return render(request, 'game.html', {"words":words})
 
 def role(request):
+    teachers = []
     up = UserProfile.objects.filter(user=request.user)[0]
     role = up.role
 
     if role == "student":
         student = UserProfile.objects.filter(user=request.user)[0]
-        player = Player.objects.filter(student=student)
+        players = Player.objects.filter(student=student)
         if player:
-            teacher = player[0].teacher.user.username
-        else:
-            teacher = None
-    else:
-        teacher = None
-
-    return render(request,'role.html',{"role":role, "teacher":teacher})
+            for p in players:
+                teachers.append(p.teacher.user.username)
+    return render(request,'role.html',{"role":role, "teachers":teachers})
 
 def add_players(request):
     teacher = UserProfile.objects.filter(user=request.user)[0]

@@ -75,7 +75,7 @@ def role(request):
 
 def add_players(request):
     if request.method == 'POST':
-        players = request.POST.get('players').split(',')
+        players = request.POST.getlist('players')
         teacher = UserProfile.objects.filter(user=request.user)[0]
         for player in players:
             student = UserProfile.objects.filter(user__username=player)[0]

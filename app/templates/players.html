@@ -28,7 +28,7 @@
              {% csrf_token %}
             <div class="form-group row justify-content-center" id="form-0">
                 <div class="col-sm-5">
-                    <select class="form-control  mt-2" onchange="dropdown_val(this)" id="select-0">
+                    <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-0">
                         <option value="0">-</option>
                          {% for player in player_names %}
                         <option class="a-{{player}}" value="{{player}}">{{player}}</option>
@@ -63,7 +63,7 @@
 function add_student(){
     $( ` <div class="form-group row justify-content-center" id="form-`+count+`">
                 <div class="col-sm-5">
-                    <select class="form-control  mt-2" onchange="dropdown_val(this)"  id="select-`+count+`">
+                    <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-`+count+`">
                         <option value="0">-</option>
                         {% for player in player_names %}
                         <option class="a-{{player}}" value="{{player}}">{{player}}</option>

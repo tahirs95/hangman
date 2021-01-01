@@ -94,7 +94,7 @@ def add_players(request):
             student = UserProfile.objects.filter(user__username=player)[0]
             p = Player(student=student, teacher=teacher)
             p.save()
-        return redirect('/')
+        return redirect('/role')
     else:
         teacher_players_list = []
         teacher_players = Player.objects.filter(teacher=teacher)

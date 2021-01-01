@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/css/mdb.min.css" rel="stylesheet">  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/assets/css/style.css">
+
+</head>
+<body>
+	<h2 class="text-center font-weight-bold mt-5" >Round  <span id="head">1</span></h2>
+<div id="memory_board" style="margin-top: 5rem;"></div>
+
+<div class="text-center">
+<button class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark" id="btn" style="display: none;" onclick="graph()"><h5 class="font-weight-bold"> View Result </h5></button>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none;" id="btn2">
+	Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header" style="border-bottom: none;">
+		  <h5 class="modal-title w-100 text-center font-weight-bold" id="exampleModalLabel">Start the Game</h5>
+		  
+		</div>
+		<div class="modal-body text-center font-weight-bold">
+		 <h6>Round <span id="level"></span> </h6>
+		</div>
+		<div class="modal-footer mx-auto" style="border-top: none;">
+		  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="start_timer()">Start</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>
+
+<script>
+	var memory_array = {{words|safe}}
+	var level_count  = 1;
+	var memory_values = [];
+	var memory_tile_ids = [];
+	var tiles_flipped = 0;
+	var time = 0;
+	var flips = 0;
+	var myTimer;
+	Array.prototype.memory_tile_shuffle = function(){
+		var i = this.length, j, temp;
+		while(--i > 0){
+			j = Math.floor(Math.random() * (i+1));
+			temp = this[j];
+			this[j] = this[i];
+			this[i] = temp;
+		}
+	}
+	function start_timer(){
+		myTimer = setInterval(myClock, 1000);
+	}
+	function myClock(){
+		time++;
+		console.log(time)
+		localStorage.setItem("time"+level_count,JSON.parse(time))
+	}
+	document.getElementById("level").innerText = level_count
+	function newBoard(){
+		tiles_flipped = 0;
+		var output = '';
+		memory_array.memory_tile_shuffle();
+		for(var i = 0; i < memory_array.length; i++){
+			output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i].val+'\',\''+memory_array[i].indicate+'\')"></div>';
+		}
+		document.getElementById('memory_board').innerHTML = output;
+	}
+	function memoryFlipTile(tile,val,indicate){
+		  flips++;
+		  localStorage.setItem("flips"+level_count,JSON.parse(flips))
+		if(tile.innerHTML == "" && memory_values.length < 2){
+			tile.style.background = '#FFF';
+			tile.innerHTML = val;
+			if(memory_values.length == 0){
+				memory_values.push(indicate);
+				memory_tile_ids.push(tile.id);
+			} else if(memory_values.length == 1){
+				memory_values.push(indicate);
+				memory_tile_ids.push(tile.id);
+				if(memory_values[0] === memory_values[1]){
+					console.log(memory_values)
+					console.log(memory_values[0])
+					console.log(memory_values[1])
+					tiles_flipped += 2;
+					// Clear both arrays
+					memory_values = [];
+					memory_tile_ids = [];
+					// Check to see if the whole board is cleared
+					if(tiles_flipped == memory_array.length){
+							level_count++;
+							clearInterval(myTimer);
+								time = 0;
+								flips = 0;
+							if(level_count > 5){
+								document.getElementById("btn").style.display="initial"
+
+							}
+							else{
+								
+								document.getElementById("level").innerText = level_count
+							document.getElementById("head").innerText = level_count
+ 			                document.getElementById('memory_board').innerHTML = "";
+                            document.getElementById("btn2").click()
+	                             newBoard();
+							}
+						// document.getElementById('memory_board').innerHTML = "";
+						// newBoard();
+					}
+				} else {
+					function flip2Back(){
+						// Flip the 2 tiles back over
+						var tile_1 = document.getElementById(memory_tile_ids[0]);
+						var tile_2 = document.getElementById(memory_tile_ids[1]);
+						tile_1.style.background = 'url("/static/assets/images/logo_transparent.png") no-repeat';
+						tile_1.style.backgroundSize = "100%"
+						tile_1.style.backgroundColor = "#BBC8D5"
+						tile_1.innerHTML = "";
+						tile_2.style.background = 'url("/static/assets/images/logo_transparent.png") no-repeat';
+						tile_2.style.backgroundSize = "100%"
+						tile_2.style.backgroundColor = "#BBC8D5"
+						tile_2.innerHTML = "";
+						// Clear both arrays
+						memory_values = [];
+						memory_tile_ids = [];
+					}
+					setTimeout(flip2Back, 700);
+				}
+			}
+		}
+	}
+	function graph(){
+		window.location.href = "/graph"
+	}
+	document.getElementById("btn2").click()
+	newBoard();
+	</script>
+
+
+</body>
+</html>

@@ -28,6 +28,7 @@
           </a>
         </div>
         {% else %}
+
         <div class="mt-5 text-center">
             <a href="#" class="btn btn-outline-light font-weight-bold w-100 disabled" data-mdb-ripple-color="dark">
               <h5 class="font-weight-bold"> Open Games </h5>
@@ -36,16 +37,34 @@
               <div class="col-sm-4">
                   <h4 class="font-weight-bold"> LIST <br>OF<br> OPEN GAMES </h4>
               </div>
+              {% for teacher in teachers %}
+              {% if forloop.first %}
               <div class="col-sm-4">
                   <div class="form-group">
-                      <input type="text" class="form-control form-control-lg mt-1"  placeholder="TEACHERS USERNAME" readonly>
+                      <input type="text" class="form-control form-control-lg mt-1" value="{{teacher}}" placeholder="TEACHERS USERNAME" readonly>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                  <button  class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
+                  <a href="/game_link/{{teacher}}" class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
                        LET'S PLAY 
-                    </button>
+                  </a>
                 </div>
+                {% else %}
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                      <input type="text" class="form-control form-control-lg mt-1" value="{{teacher}}" placeholder="TEACHERS USERNAME" readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <a href="/game_link/{{teacher}}" class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
+                       LET'S PLAY 
+                  </a>
+                </div>
+                {% endif %}
+                {% endfor %}
              </div>
             </div>
         {% endif %}

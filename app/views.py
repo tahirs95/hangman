@@ -44,6 +44,9 @@ def game_2(request):
 def graph_2(request):
      return render(request, 'graph-2.html')
 
+def graph(request):
+     return render(request, 'graph-link.html')
+
 
 def game_start_2(request):
      return render(request, 'game-start-2.html')

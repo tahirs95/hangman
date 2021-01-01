@@ -29,22 +29,7 @@
                 {% csrf_token %}
                 <div id="form">
                     {% if words|length > 0 %}
-                    {% for key,value in words.items %} 
-                    <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label for="pwd" ><h3 class="font-weight-bold"> Enter Word:</h3></label>
-                              <input type="text"  class="form-control word" id="pwd" value="{{key}}" placeholder="Enter Word" data-name="1" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label for="pwd" ><h3 class="font-weight-bold"> Translation:</h3></label>
-                              <input type="text" class="form-control translation" id="pwd" value="{{value}}" placeholder="Enter Translation" data-name="1" required>
-                            </div>
-                      </div>
-                          </div> 
-                      {% endfor %}
+                   
                     {% else %}
                     <div class="row">
                   <div class="col-sm-6">
@@ -128,16 +113,38 @@
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>    
         <script>
   function form_submit(){
-      var obj = {}
-      
-         for (var i = 0 ; i<document.querySelectorAll(".word").length;i++){
-           obj [document.querySelectorAll(".word")[i].value] = document.querySelectorAll(".translation")[i].value      
-         }
+    var values = []
+  localStorage.setItem("length",JSON.parse(document.querySelectorAll(".form-control").length))
+  document.querySelectorAll(".form-control").forEach(function(item){
+    var obj = {val:item.value,indicate:item.getAttribute('data-name')}
+    values.push(obj)
+  })
 
-  document.getElementById("words").value = JSON.stringify(obj)
-  }
-
-              var count = 5;
+  document.getElementById("words").value = JSON.stringify(values)  }
+            var words =  {{words|length}}
+            var list  = {{words|safe}}
+            var count = 5;
+            if(words > 0){
+              count  = (words/2) + 1;
+               for(var i = 0 ; i <words ;i+=2){
+                 $("#form").append(`
+                 <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label for="pwd" ><h3 class="font-weight-bold"> Enter Word:</h3></label>
+                              <input type="text"  class="form-control word" id="pwd" value="`+list[i].val+`" placeholder="Enter Word" data-name="`+list[i].indicate+`" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label for="pwd" ><h3 class="font-weight-bold"> Translation:</h3></label>
+                              <input type="text" class="form-control translation" id="pwd" value="`+list[i+1].val+`" placeholder="Enter Translation" data-name="`+list[i+1].indicate+`" required>
+                            </div>
+                      </div>
+                          </div>
+                 `)
+               }
+            }
 function add_words(){
   $("#form").append(`
   <div class="row">

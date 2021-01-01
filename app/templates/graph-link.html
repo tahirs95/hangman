@@ -31,7 +31,7 @@
     </p>
   <br>
   <div class="text-center">
-  <a class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark" href="/"><h5 class="font-weight-bold"> Play Again</h5></a>
+  <a class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark" href="/role"><h5 class="font-weight-bold"> Play Again</h5></a>
   </div>
   <br>
 </div>
@@ -43,9 +43,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>
     <script>
- if(!localStorage.getItem("time1")||!localStorage.getItem("time2")||!localStorage.getItem("time3")||!localStorage.getItem("time4")||!localStorage.getItem("time5")||!localStorage.getItem("flips1")||!localStorage.getItem("flips2")||!localStorage.getItem("flips3")||!localStorage.getItem("flips4")||!localStorage.getItem("flips5")){
-  window.location.href="/"
- }
+ 
 
         document.getElementById("value1").innerText = (JSON.parse(localStorage.getItem("length"))) * 5
          document.getElementById("value2").innerText = (JSON.parse(localStorage.getItem("length"))) * 10;

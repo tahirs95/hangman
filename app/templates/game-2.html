@@ -152,7 +152,6 @@ function values_set(){
     var obj = {val:item.value,indicate:item.getAttribute('data-name')}
     values.push(obj)
   })
-  console.log(values)
   localStorage.setItem("values",JSON.stringify(values))
   window.location.href ="/solo-game"
 }

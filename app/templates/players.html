@@ -16,6 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand mx-auto text-center" href="/"><img id="logo" src="/static/assets/images/logo.png"></a>
+        
       </nav>
 <div class="container">
           <div class="mt-5 text-center">
@@ -24,14 +25,16 @@
           </a>
         </div>
         <div class="mt-3">
-           <form method="POST" action="/add_players/">
+          <div class="alert alert-danger text-center"  id="error">Please Select Students</div>
+           <form method="POST" action="/add_players/" id="form_post">
              {% csrf_token %}
+              {% if teacher_players_list|length > 0 %}
+              <div id="form">
              {% for student in teacher_players_list %}
               {% if forloop.first %}
             <div class="form-group row justify-content-center" id="form-{{ forloop.counter0 }}">
                 <div class="col-sm-5">
                     <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-{{ forloop.counter0 }}">
-                        <option value="0">-</option>
                          {% for player in player_names %}
                         <option class="a-{{player}}" value="{{player}}">{{player}}</option>
                         {% endfor %}
@@ -45,7 +48,6 @@
                   <div class="form-group row justify-content-center" id="form-{{ forloop.counter0 }}">
                       <div class="col-sm-5">
                           <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-{{ forloop.counter0 }}">
-                              <option value="0">-</option>
                                {% for player in player_names %}
                               <option class="a-{{player}}" value="{{player}}">{{player}}</option>
                               {% endfor %}
@@ -53,13 +55,29 @@
                        
                       </div>
                       <div class="col-sm-2">
-                        <button  type="button" class="btn btn-outline-light font-weight-bold waves-effect" style="width: 100% !important;" data-mdb-ripple-color="dark" onclick="delete_student(`+count+`)">
+                        <button  type="button" class="btn btn-outline-light font-weight-bold waves-effect" style="width: 100% !important;" data-mdb-ripple-color="dark" onclick="delete_student({{ forloop.counter0 }})">
                           Delete </button>
                       </div>
                     </div>
 
                     {% endif %}
                 {% endfor %}
+              </div>
+                {% else %}
+                <div id="form">
+                <div class="form-group row justify-content-center" id="form-0">
+                  <div class="col-sm-5">
+                      <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-0">
+                           {% for player in player_names %}
+                          <option class="a-{{player}}" value="{{player}}">{{player}}</option>
+                          {% endfor %}
+                        </select>
+                  </div>
+                  <div class="col-sm-2">
+                  </div>
+                </div>
+              </div>
+                {% endif %}
 
               <div class="col-sm-3 mt-2 mx-auto">
                 <button type="button" class="btn btn-outline-light font-weight-bold waves-effect" style="width: 100% !important;" data-mdb-ripple-color="dark" onclick="add_student()">
@@ -67,7 +85,7 @@
              </div>
              <br>
              <div class="mt-4 text_right">
-                <button type="submit" class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark">
+                <button type="button" class="btn btn-outline-light font-weight-bold waves-effect" data-mdb-ripple-color="dark" onclick="form_value()">
                   <h5 class="font-weight-bold"> Submit </h5>
                 </button>
               </div>
@@ -86,16 +104,18 @@
   var players = {{teacher_players_list|safe}}
   console.log(players)
     var count = 1;
-    var count2 = 0;
     if(list>0){
       for(var i = 0 ; i<list;i++){
         document.querySelector("#select-"+i).value = players[i]
+        document.querySelectorAll(".a-"+players[i]).forEach(function(elem2){
+         elem2.disabled = true;
+     })
+     $("select[id=select"+i+"] :selected").attr("disabled",false) 
       }
       count  = list;
-      count2 = list - 1
     }
 function add_student(){
-    $( ` <div class="form-group row justify-content-center" id="form-`+count+`">
+    $("#form").append( ` <div class="form-group row justify-content-center" id="form-`+count+`">
                 <div class="col-sm-5">
                     <select class="form-control  mt-2" onchange="dropdown_val(this)" name="players" id="select-`+count+`">
                         <option value="0">-</option>
@@ -108,23 +128,43 @@ function add_student(){
                      <button  type="button" class="btn btn-outline-light font-weight-bold waves-effect" style="width: 100% !important;" data-mdb-ripple-color="dark" onclick="delete_student(`+count+`)">
                      Delete </button>
                  </div>
-              </div>` ).insertAfter( "#form-"+count2 );
-             count2 = count  
-            count++;
-            console.log(count2,count)
+              </div>` )
+            
               
 }
 
 function delete_student(item){
+  var value = document.getElementById("select-"+item).value
+  document.querySelectorAll(".a-"+value).forEach(function(elem2){
+      elem2.disabled = false;
+  }) 
 $("#form-"+item).remove();
 }
 
 function dropdown_val(elem){
-    $('option[disabled').removeAttr("disabled");
+    $('option[disabled').removeAttr("disabled")
   document.querySelectorAll(".a-"+elem.value).forEach(function(elem2){
       elem2.disabled = true;
   })
   $("select[id="+elem.id+"] :selected").attr("disabled",false) 
+}
+
+function form_value(){
+  var count = 0;
+  document.querySelectorAll(".form-control").forEach(function(elem){
+    if(elem.value == "0"){
+     document.getElementById("error").style.display = "block";
+      return;
+    }
+    else{
+      count++;
+    }
+  })
+  if(count == document.querySelectorAll(".form-control").length ){
+    document.getElementById("error").style.display = "none";
+    document.getElementById("form_post").submit();
+
+  }
 }
 </script>    
 </body>

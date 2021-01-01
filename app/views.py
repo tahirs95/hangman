@@ -107,7 +107,7 @@ def add_players(request):
         for p in players:
             player_names.append(p.user.username)
         
-        return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':teacher_players_list})
+        return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':list(set(teacher_players_list))})
 
 def game_link(request, *args, **kwargs):
     teacher_uname = kwargs['teacher']

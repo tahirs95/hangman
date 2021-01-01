@@ -105,3 +105,7 @@ div#memory_board > div{
         width: 100% !important;
     }
   }
+
+  #error{
+      display: none;
+  }

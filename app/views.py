@@ -81,7 +81,7 @@ def role(request):
         if players:
             for p in players:
                 teachers.append(p.teacher.user.username)
-    return render(request,'role.html',{"role":role, "teachers":teachers})
+    return render(request,'role.html',{"role":role, "teachers":list(set(teachers))})
 
 def add_players(request):
     teacher = UserProfile.objects.filter(user=request.user)[0]

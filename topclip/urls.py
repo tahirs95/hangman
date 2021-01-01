@@ -35,5 +35,7 @@ urlpatterns = [
     path('graph-solo/', views.graph_2, name='graph_2'),
     path('role/', views.role, name='role'),
     path('add_players/', views.add_players, name='add_players'),
+    path('play/', views.play, name='play'),
+    path('game_link/<teacher>', views.game_link, name='game_link'),
     
 ]

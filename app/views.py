@@ -17,10 +17,12 @@ def signup(request):
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            
+            password = user_form["password"].value()
             username = user_form["username"].value()
             role = profile_form["role"].value().lower()
             u = User.objects.get(username=username)
+            u.set_password(password)
+            u.save()
             up = UserProfile(role=role, user=u)
             up.save()
             # profile_form.save()
@@ -74,18 +76,41 @@ def role(request):
     return render(request,'role.html',{"role":role})
 
 def add_players(request):
+    teacher = UserProfile.objects.filter(user=request.user)[0]
     if request.method == 'POST':
         players = request.POST.getlist('players')
-        teacher = UserProfile.objects.filter(user=request.user)[0]
         for player in players:
             student = UserProfile.objects.filter(user__username=player)[0]
             p = Player(student=student, teacher=teacher)
             p.save()
         return redirect('/')
     else:
+        teacher_players_list = []
+        teacher_players = Player.objects.filter(teacher=teacher)
+        if teacher_players:
+            for p in teacher_players:
+                teacher_players_list.append(p.student.user.username)
+        
         players = UserProfile.objects.filter(role='student')
         player_names = []
         for p in players:
             player_names.append(p.user.username)
-        print(player_names)
-        return render(request, 'players.html', {'player_names':player_names})
+        
+        return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':teacher_players_list})
+
+def play(request):
+    student = UserProfile.objects.filter(user=request.user)[0]
+    player = Player.objects.filter(student=student)
+    if player:
+        teacher = player[0].teacher.user.username
+    else:
+        teacher = None
+    return render(request,'play.html',{"teacher":teacher})
+
+def game_link(request, *args, **kwargs):
+    teacher_uname = kwargs['teacher']
+    teacher = UserProfile.objects.filter(user__username=teacher_uname)[0]
+    g = Game.objects.filter(teacher=teacher)
+    words = json.loads(g[0].words)
+    return render(request,'game_link.html',{"words":words})
+

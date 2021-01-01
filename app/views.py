@@ -73,7 +73,18 @@ def game(request):
 def role(request):
     up = UserProfile.objects.filter(user=request.user)[0]
     role = up.role
-    return render(request,'role.html',{"role":role})
+
+    if role == "student":
+        student = UserProfile.objects.filter(user=request.user)[0]
+        player = Player.objects.filter(student=student)
+        if player:
+            teacher = player[0].teacher.user.username
+        else:
+            teacher = None
+    else:
+        teacher = None
+
+    return render(request,'role.html',{"role":role, "teacher":teacher})
 
 def add_players(request):
     teacher = UserProfile.objects.filter(user=request.user)[0]
@@ -97,15 +108,6 @@ def add_players(request):
             player_names.append(p.user.username)
         
         return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':teacher_players_list})
-
-def play(request):
-    student = UserProfile.objects.filter(user=request.user)[0]
-    player = Player.objects.filter(student=student)
-    if player:
-        teacher = player[0].teacher.user.username
-    else:
-        teacher = None
-    return render(request,'play.html',{"teacher":teacher})
 
 def game_link(request, *args, **kwargs):
     teacher_uname = kwargs['teacher']

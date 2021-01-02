@@ -97,6 +97,9 @@ div#memory_board > div{
         top: -150px;
     }
   }
+  .w-30{
+    width: 30% !important;
+}
   @media only screen and (max-width: 575px) {
     .text_right{
         text-align: center;
@@ -104,12 +107,13 @@ div#memory_board > div{
     .w-50{
         width: 100% !important;
     }
+    .w-30{
+        width: 50% !important;
+    }
   }
 
   #error{
       display: none;
   }
 
-  .w-30{
-      width: 30% !important;
-  }
+  

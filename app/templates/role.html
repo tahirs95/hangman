@@ -14,10 +14,17 @@
 <link rel="stylesheet" href="/static/assets/css/style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mx-auto text-center" href="/"><img id="logo" src="/static/assets/images/logo.png"></a>
-      </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item ">
+        <a class="nav-link btn btn-outline-light font-weight-bold waves-effect"  data-mdb-ripple-color="dark" href="/logout">Logout</a>
+      </li>
+      </ul>
+  </nav>
 <div class="container">
+  <div class="text-center">
+    <a class="mx-auto text-center" href="/"><img id="logo" class="w-30" src="/static/assets/images/logo.png"></a>
+  </div>
         {% if role == 'teacher' %}
           <div class="mt-5 text-center">
           <a href="/game" class="btn btn-outline-light font-weight-bold waves-effect w-100" data-mdb-ripple-color="dark">

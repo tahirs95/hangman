@@ -20,10 +20,11 @@
 <link rel="stylesheet" href="/static/assets/css/style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand mx-auto text-center" href="/"><img id="logo" src="/static/assets/images/logo.png"></a>
-      </nav>
+   
 <div class="container">
+  <div class="text-center">
+    <a class="mx-auto text-center" href="/"><img id="logo" class="w-30" src="/static/assets/images/logo.png"></a>
+  </div>
     <form method="POST">
       {% csrf_token %}  
         <div class="form-group row">

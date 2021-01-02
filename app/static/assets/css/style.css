@@ -109,3 +109,7 @@ div#memory_board > div{
   #error{
       display: none;
   }
+
+  .w-30{
+      width: 30% !important;
+  }

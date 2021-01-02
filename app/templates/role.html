@@ -76,4 +76,79 @@
             </div>
         {% endif %}
     </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          
+          <div class="modal-body">
+            <div class="text-center">
+              <a class="mx-auto text-center" href="/"><img id="logo" class="w-30" src="/static/assets/images/logo.png"></a>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <h1 class="text-center font-weight-bold">
+                  The service is offered to the user free of charge for a period of one month.
+You must then enter payment information to continue using our services.
+Cost of 4.90 NIS per month
+                </h1>
+              </div>
+              <div class="col-lg-6">
+               <div class="text-center">
+                 <a href="#" class="btn btn-outline-light font-weight-bold w-100 disabled" data-mdb-ripple-color="dark">
+                   <h6 class="font-weight-bold"> Please Enter a form of payment</h6>
+                 </a>
+             </div>
+             <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> Credit Number </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> ID </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> Expired Date </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> CW </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> ID </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label for="staticEmail" class="col-sm-4 col-form-label text_right"><h6 class="font-weight-bold"> Email Address </h6></label>
+              <div class="col-sm-8">
+                <input type="text"  class="form-control" id="staticEmail" required>
+              </div>
+            </div>
+           </div>
+         </div>
+          </div>
+          
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>    <script>
+      $(window).on('load', function() {
+        $('#myModal').modal('show');
+    });
+    </script>
     </body>

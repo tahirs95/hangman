@@ -116,4 +116,6 @@ div#memory_board > div{
       display: none;
   }
 
-  
+  .modal-body,.modal-content{
+    background-color: #AB8484;
+  }

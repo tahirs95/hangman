@@ -116,6 +116,7 @@ def role(request):
 def add_players(request):
     teacher = UserProfile.objects.filter(user=request.user)[0]
     if request.method == 'POST':
+        Player.objects.filter(teacher=teacher).delete()
         players = request.POST.getlist('players')
         for player in players:
             student = UserProfile.objects.filter(user__username=player)[0]
@@ -134,6 +135,7 @@ def add_players(request):
         for p in players:
             player_names.append(p.user.username)
         
+        print(teacher_players_list)
         return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':list(set(teacher_players_list))})
 
 @login_required(login_url="/login")

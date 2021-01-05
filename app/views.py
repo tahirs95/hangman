@@ -1,7 +1,9 @@
 import json
+from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .forms import  UserForm, ProfileForm
 from .models import  UserProfile, Game, Player
@@ -44,13 +46,14 @@ def game_2(request):
 def graph_2(request):
      return render(request, 'graph-2.html')
 
+@login_required(login_url="/login")
 def graph(request):
      return render(request, 'graph-link.html')
-
 
 def game_start_2(request):
      return render(request, 'game-start-2.html')
 
+@login_required(login_url="/login")
 def game(request):
     if request.method == 'POST':
         words = request.POST.get('words')
@@ -73,7 +76,30 @@ def game(request):
             words = {}
         return render(request, 'game.html', {"words":words})
 
+@login_required(login_url="/login")
 def role(request):
+    up = UserProfile.objects.filter(user=request.user)[0]
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        up.status = status
+        up.save()
+
+    d1 = request.user.date_joined
+    timezone = request.user.date_joined.tzinfo
+    d2 = datetime.now(timezone)
+    joining_days = abs((d2 - d1).days)
+
+    if joining_days >= 30:
+        status = True
+        up.status = status
+        up.save()
+        print("True")
+    else:
+        status = False
+        up.status = status
+        up.save()
+        print("False")
+
     teachers = []
     up = UserProfile.objects.filter(user=request.user)[0]
     role = up.role
@@ -84,8 +110,9 @@ def role(request):
         if players:
             for p in players:
                 teachers.append(p.teacher.user.username)
-    return render(request,'role.html',{"role":role, "teachers":list(set(teachers))})
+    return render(request,'role.html',{"role":role, "teachers":list(set(teachers)), "status":status})
 
+@login_required(login_url="/login")
 def add_players(request):
     teacher = UserProfile.objects.filter(user=request.user)[0]
     if request.method == 'POST':
@@ -109,6 +136,7 @@ def add_players(request):
         
         return render(request, 'players.html', {'player_names':player_names, 'teacher_players_list':list(set(teacher_players_list))})
 
+@login_required(login_url="/login")
 def game_link(request, *args, **kwargs):
     teacher_uname = kwargs['teacher']
     teacher = UserProfile.objects.filter(user__username=teacher_uname)[0]

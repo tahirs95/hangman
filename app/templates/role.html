@@ -135,10 +135,14 @@ Cost of 4.90 NIS per month
               </div>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-outline-light font-weight-bold waves-effect"  data-mdb-ripple-color="dark" data-dismiss="modal" >PAY NOW</button>
+              <button type="button" class="btn btn-outline-light font-weight-bold waves-effect" onclick="form_submit()"  data-mdb-ripple-color="dark" data-dismiss="modal" >PAY NOW</button>
             </div>
            </div>
          </div>
+         <form action="/role/" method="POST" id="form-false">
+           {% csrf_token %}
+            <input type="text" class="d-none" value="False" name="status">
+         </form>
           </div>
           
       </div>
@@ -149,9 +153,16 @@ Cost of 4.90 NIS per month
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>    <script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.18.0/js/mdb.min.js"></script>   
+   {% if status == True %}
+   <script>
       $(window).on('load', function() {
         $('#myModal').modal('show');
     });
+
+    function form_submit(){
+      document.getElementById("form-false").submit()
+    }
     </script>
+    {% endif %}
     </body>

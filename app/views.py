@@ -81,9 +81,14 @@ def role(request):
     up = UserProfile.objects.filter(user=request.user)[0]
     if request.method == 'POST':
         status = request.POST.get('status')
+        print("SSSS", status)
         if status:
-            up.status = False
+            up.status = status
             up.save()
+            u = request.user
+            u.date_joined = datetime.now()
+            u.save()
+        return redirect('/role')
 
     d1 = request.user.date_joined
     timezone = request.user.date_joined.tzinfo

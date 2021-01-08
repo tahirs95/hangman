@@ -112,8 +112,12 @@
   var count = 1;
  
   
+  
     if(list>0){
       count  = list;
+      for(var i = 0 ;i<list;i++){
+        document.getElementById("select-"+i).value = players[i]
+      } 
     }
     if(count == len){
        document.getElementById('btn').style.display = 'none'
